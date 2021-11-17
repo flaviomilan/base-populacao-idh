@@ -1,0 +1,4 @@
+pandas==1.3.4
+fastparquet==0.7.1
+xlrd==2.0.1
+typer==0.4.0

@@ -17,11 +17,15 @@ def generate(file_name: str, file_format: FileFormat):
     
     try:
         df = pd.read_excel('files/base_populacao_idhm.xls')
-        getattr(df, f'to_{file_format.value}')(file_name, orient='records')
+        if file_format == FileFormat.parquet:
+            df.to_parquet(file_name)
+        else:
+            df.to_json(file_name, orient='records')
+
     except Exception as err:
         typer.echo(f"Problema ao gerar o arquivo: {err}")
-    
-    typer.echo(f"Arquivo gerado com sucesso.")
+    else:
+        typer.echo(f"Arquivo gerado com sucesso.")
 
 
 if __name__ == "__main__":
